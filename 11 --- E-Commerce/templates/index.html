@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Flask Blog</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  </head>
+  <body>
+    <header>
+      <div class="container">
+        <div id="branding">
+          <h1>Flask Blog</h1>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+            <li><a href="{{ url_for('create_post') }}">New Post</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <div class="container">
+      <ul>
+        {% for post in posts %}
+          <li>
+            <h2>{{ post['title'] }}</h2>
+            <p>{{ post['content'] }}</p>
+            <a href="{{ url_for('edit_post', post_id=post['id']) }}" class="button">Edit</a>
+            <form action="{{ url_for('delete_post', post_id=post['id']) }}" method="post" style="display:inline;">
+              <button type="submit">Delete</button>
+            </form>
+          </li>
+        {% else %}
+          <li>No posts yet.</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </body>
+</html>
+
+
